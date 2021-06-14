@@ -22,7 +22,7 @@ module top_tb(
 	reg rst;
 	reg change;
 	reg err;
-	wire [7:0] counter_out;
+	reg [7:0] counter_out;
 	reg [7:0] counter_prev;
 	
 	
@@ -75,8 +75,7 @@ module top_tb(
 		.clk (clk),
 		.rst (rst),
 		.change (change),
-		.on_off (on_off),
-		.counter_out (counter_out)
+		.on_off (on_off)
 		);
  
 endmodule 
