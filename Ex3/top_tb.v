@@ -31,7 +31,7 @@ module top_tb(
     		begin
        			clk = 1'b0;
        			forever
-         			#(CLK_PERIOD/2) clk=~clk;	change every half-period
+         			#(CLK_PERIOD/2) clk=~clk;	//change every half-period
      		end
 
 //Todo: User logic
@@ -77,6 +77,6 @@ module top_tb(
 		.change (change),
 		.on_off (on_off),
 		.counter_out (counter_out)
-		),
+		);
  
 endmodule 
