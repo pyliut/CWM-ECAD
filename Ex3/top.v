@@ -24,22 +24,31 @@ module monitor (
 	input rst,	//1 resets counter_out
 	input change,	//1 indicates we should increment/decrement
 	input on_off,	//1 increments, 0 decrements
-	output reg [7:0] counter_out	//counter
+	output [7:0] counter_out	//counter
     );
                     
     //Todo: add registers and wires, if needed
-    
-    //Todo: add user logic
+    	reg [7:0] counter_out;
 
-	always @ (posedge clk or posedge rst)
+    //Todo: add user logic
+	always @ (posedge clk)
 		
 		//reset
 		if (rst)
 			counter_out <= 8'b0;
-		
-		//increment or decrement
+
 		else if (change) begin
-			counter_out <= (on_off) ? counter_out + 8'b1 : counter_out - 8'b0;
+			if (on_off) begin
+				if (counter_out == 8'b1111_1111)
+					counter_out <= 8'b0;
+				else
+					counter_out <= counter_out + 8'b1;
+			end else begin
+				if (counter_out == 8'b0)
+					counter_out <= 8'b1111_1111;
+				else
+					counter_out <= counter_out - 8'b0;
+			end
 		end
 			
       

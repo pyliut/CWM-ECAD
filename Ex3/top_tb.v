@@ -10,8 +10,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 `timescale 1ns / 100ps
 
-module top_tb(
-    );
+module top_tb();
     
 //Todo: Parameters
 	parameter CLK_PERIOD = 10; 	//set clock period
@@ -22,45 +21,45 @@ module top_tb(
 	reg rst;
 	reg change;
 	reg err;
-	reg [7:0] counter_out;
+	wire [7:0] counter_out;
 	reg [7:0] counter_prev;
 	
 	
 //Todo: Clock generation
-	initial
-    		begin
-       			clk = 1'b0;
-       			forever
-         			#(CLK_PERIOD/2) clk=~clk;	//change every half-period
-     		end
+	initial begin
+       		clk = 1'b0;
+       		forever
+         		#(CLK_PERIOD/2) clk=~clk;	//change every half-period
+     	end
 
 //Todo: User logic
 
-	initial
-		begin
-			counter_out = 0;
-			on_off = 1;
-			rst = 0;
-			change = 1;
-			err = 0;
-			counter_prev = counter_out;
-			forever begin
-				#CLK_PERIOD		//add delay to progress time
-				if (change) begin
-					if (on_off) begin
-						if (counter_out != (counter_prev + 1)) begin
-							$display("***TEST FAILED! on_off==%d, counter_out=%d counter_prev=%d***",on_off,counter_out,counter_prev);
-							err = 1;
-						end
-					end else begin
-						if (counter_out != (counter_prev - 1)) begin
-							$display("***TEST FAILED! on_off==%d, counter_out=%d counter_prev=%d***",on_off,counter_out,counter_prev);
-							err = 1;
-						end
+	initial begin
+		on_off = 1;
+		rst = 1;
+		change = 0;
+		err = 0;
+		counter_prev = counter_out;
+		forever begin
+			#CLK_PERIOD		//add delay to progress time
+			//change inputs
+
+			//check for failure
+			if (change) begin
+				if (on_off) begin
+					if (counter_out != (counter_prev + 1)) begin
+						$display("***TEST FAILED! on_off==%d, counter_out=%d counter_prev=%d***",on_off,counter_out,counter_prev);
+						err = 1;
+					end
+				end else begin
+					if (counter_out != (counter_prev - 1)) begin
+						$display("***TEST FAILED! on_off==%d, counter_out=%d counter_prev=%d***",on_off,counter_out,counter_prev);
+						err = 1;
 					end
 				end
 			end
 		end
+	end
 
 //Todo: Finish test, check for success
 	initial begin
@@ -75,7 +74,8 @@ module top_tb(
 		.clk (clk),
 		.rst (rst),
 		.change (change),
-		.on_off (on_off)
+		.on_off (on_off),
+		.counter_out (counter_out)
 		);
  
 endmodule 
