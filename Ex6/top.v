@@ -28,7 +28,7 @@ module rgb_converter (
     	);
 
     //Todo: add register
-	reg [23:0] rgb;
+	wire [23:0] rgb;
 
 
 //----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
