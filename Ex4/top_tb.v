@@ -47,7 +47,7 @@ module top_tb();
 	end
 
 //Todo: Instantiate counter module
-	monitor top (
+	lights top (
 		.clk (clk),
 		.rst (rst),
 		.button (button),

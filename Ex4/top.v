@@ -18,7 +18,7 @@
 
 `timescale 1ns / 100ps
 
-module monitor (
+module lights (
     //Todo: add ports 
 	input clk,	//0 or 1
 	input rst,	//1 resets counter_out
