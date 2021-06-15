@@ -39,21 +39,21 @@ module top_tb();
 		rst = 1;
 		change = 0;
 		err = 0;
-		counter_prev = counter_out;
-		forever begin
-			#CLK_PERIOD		//add delay to progress time
-			//change inputs
 
+		forever begin
+			counter_prev = counter_out;
+			#CLK_PERIOD		//add delay to progress time
+			
 			//check for failure
 			if (change) begin
 				if (on_off) begin
 					if (counter_out != (counter_prev + 1)) begin
-						$display("***TEST FAILED! on_off==%d, counter_out=%d counter_prev=%d***",on_off,counter_out,counter_prev);
+						$display("***TEST FAILED (unless on_off has just changed sign)! on_off==%d, counter_out=%d counter_prev=%d***",on_off,counter_out,counter_prev);
 						err = 1;
 					end
 				end else begin
 					if (counter_out != (counter_prev - 1)) begin
-						$display("***TEST FAILED! on_off==%d, counter_out=%d counter_prev=%d***",on_off,counter_out,counter_prev);
+						$display("***TEST FAILED (unless on_off has just changed sign)! on_off==%d, counter_out=%d counter_prev=%d***",on_off,counter_out,counter_prev);
 						err = 1;
 					end
 				end
@@ -63,7 +63,13 @@ module top_tb();
 
 //Todo: Finish test, check for success
 	initial begin
-        	#50 			//500-1000 sim ticks
+		#10
+		rst = 0;
+		#10
+		change = 1;
+		#300
+		on_off = 0;
+        	#200			//500-1000 sim ticks in total
         	if (err==0)
           		$display("***TEST PASSED! :) ***");
         	$finish;	//finish simulation

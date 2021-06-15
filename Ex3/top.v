@@ -47,7 +47,7 @@ module monitor (
 				if (counter_out == 8'b0)
 					counter_out <= 8'b1111_1111;
 				else
-					counter_out <= counter_out - 8'b0;
+					counter_out <= counter_out - 8'b1;
 			end
 		end
 			
