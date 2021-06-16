@@ -14,8 +14,15 @@ module top_tb();
 	parameter CLK_PERIOD = 10; 	//set clock period
 
 //Todo: Registers and wires
-	reg clk;
-	reg [4:0] temperature;
+	reg clk_p;
+	reg clk_n;
+	reg rst_n
+	reg temperature_0;
+	reg temperature_1;
+	reg temperature_2;
+	reg temperature_3;
+	reg temperature_4;
+	reg [4:0] temperature = {temperature_4, temperature_3, temperature_2, temperature_1, temperature_0};
 	wire heating;
 	wire cooling;
 	reg err;
@@ -23,10 +30,11 @@ module top_tb();
 
 //Todo: Clock generation
 	initial begin
-       		clk = 1'b0;
+       		clk_p = 1'b1;
        		forever
-         		#(CLK_PERIOD/2) clk=~clk;	//change every half-period
+         		#(CLK_PERIOD/2) clk_p=~clk_p;	//change every half-period
      	end
+	clk_n = ~clk_p;
 
 //Todo: error checking
 	initial begin
@@ -74,8 +82,14 @@ module top_tb();
 
 //Todo: Instantiate module
 	top top (
-		.clk (clk),
-		.temperature (temperature),
+		.clk_p (clk_p),
+		.clk_n (clk_n),
+		.rst_n (rst_n),
+		.temperature_0 (temperature_0),
+		.temperature_1 (temperature_1),
+		.temperature_2 (temperature_2),
+		.temperature_3 (temperature_3),
+		.temperature_4 (temperature_4),
 		.heating (heating),
 		.cooling (cooling)
 		);	
