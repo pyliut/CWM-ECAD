@@ -93,9 +93,7 @@ create_clock -period 10 -name clk_n -waveform {5.0 10.0} [get_ports clk_n]
 ## Clock groups
 #set_clock_groups -asynchronous –group [get_clocks –include_generated_clocks clk_oxo]  #group [get_clocks –include_generated_clocks clk_core]
 
-set_clock_groups -asynchronous –group [get_clocks 
-–include_generated_clocks clk_p] -group [get_clocks 
-–include_generated_clocks n]
+set_clock_groups -asynchronous –group [get_clocks –include_generated_clocks clk_p] -group [get_clocks –include_generated_clocks n]
 
 
 ## Input and output delay constraints
@@ -116,7 +114,8 @@ set_clock_groups -asynchronous –group [get_clocks
 #than time constrainted by default.
 
 ## False paths
-# set_false_path - Logic path in the design that should not be analysed.
+# set_false_path 
+#Logic path in the design that should not be analysed.
 
 
 ## Max and Min delay
