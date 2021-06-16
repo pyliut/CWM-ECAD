@@ -42,11 +42,6 @@ module rgb_converter (
 	);
 // INST_TAG_END ------ End INSTANTIATION Template ---------
 
-
-	 //always @(posedge clk)
-      		//if (enable) begin
-         		//rgb = my_bram;
-      		//end
 	
       
 endmodule

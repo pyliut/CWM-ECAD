@@ -29,10 +29,10 @@ module select(
     	);
     
     //Todo: define registers and wires here
-	wire light;
+	wire [23:0] light;
 
     //Todo: define your logic here  
 
-	//delay by 5 ticks            
-      	assign #5 light = (sel)? rgb : white;
+	//delay by 5 ticks 
+	assign #5 light = (sel)? rgb : white;
 endmodule
