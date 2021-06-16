@@ -23,7 +23,7 @@ module top_tb();
 
 //Todo: Clock generation
 	initial begin
-       		clk = 1'b0;
+       		clk = 1'b1;
        		forever
          		#(CLK_PERIOD/2) clk=~clk;	//change every half-period
      	end
@@ -39,7 +39,7 @@ module top_tb();
 					3'b000: colour = 3'b001;
 					3'b110: colour = 3'b001;
 					3'b111: colour = 3'b001;
-					3'b000: colour = colour + 3'b001;
+					default: colour = colour + 3'b001;
 				endcase
 			end
 				
