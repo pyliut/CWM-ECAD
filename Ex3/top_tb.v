@@ -27,7 +27,7 @@ module top_tb();
 	
 //Todo: Clock generation
 	initial begin
-       		clk = 1'b0;
+       		clk = 1'b1;
        		forever
          		#(CLK_PERIOD/2) clk=~clk;	//change every half-period
      	end
@@ -39,7 +39,7 @@ module top_tb();
 		rst = 1;
 		change = 0;
 		err = 0;
-
+		#1 	//offsets checks
 		forever begin
 			counter_prev = counter_out;
 			#CLK_PERIOD		//add delay to progress time
@@ -48,12 +48,12 @@ module top_tb();
 			if (change) begin
 				if (on_off) begin
 					if (counter_out != (counter_prev + 1)) begin
-						$display("***TEST FAILED (unless on_off has just changed sign)! on_off==%d, counter_out=%d counter_prev=%d***",on_off,counter_out,counter_prev);
+						$display("***TEST FAILED: on_off==%d, change == %d, counter_out=%d counter_prev=%d***",on_off,change,counter_out,counter_prev);
 						err = 1;
 					end
 				end else begin
 					if (counter_out != (counter_prev - 1)) begin
-						$display("***TEST FAILED (unless on_off has just changed sign)! on_off==%d, counter_out=%d counter_prev=%d***",on_off,counter_out,counter_prev);
+						$display("***TEST FAILED: on_off==%d, change == %d, counter_out=%d counter_prev=%d***",on_off,change,counter_out,counter_prev);
 						err = 1;
 					end
 				end
@@ -67,7 +67,11 @@ module top_tb();
 		rst = 0;
 		#10
 		change = 1;
-		#300
+		#30
+		change = 0;
+		#60
+		change = 1;
+		#200
 		on_off = 0;
         	#200			//500-1000 sim ticks in total
         	if (err==0)
