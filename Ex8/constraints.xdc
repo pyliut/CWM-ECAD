@@ -51,15 +51,15 @@ set_property PACKAGE_PIN AT20 [get_ports temperature_4]
 
 set_property IOSTANDARD DIFF_SSTL12 [get_ports clk_n]
 set_property IOSTANDARD DIFF_SSTL12 [get_ports clk_p]
-set_property IOSTANDARD LVCMOS18  [get_ports rst_n]
-set_property IOSTANDARD LVCMOS18  [get_ports heating]
-set_property IOSTANDARD LVCMOS18  [get_ports cooling]
+set_property IOSTANDARD LVCMOS18 [get_ports rst_n]
+set_property IOSTANDARD LVCMOS18 [get_ports heating]
+set_property IOSTANDARD LVCMOS18 [get_ports cooling]
 
-set_property IOSTANDARD LVCMOS18  [get_ports temperature_0]
-set_property IOSTANDARD LVCMOS18  [get_ports temperature_1]
-set_property IOSTANDARD LVCMOS18  [get_ports temperature_2]
-set_property IOSTANDARD LVCMOS18  [get_ports temperature_3]
-set_property IOSTANDARD LVCMOS18  [get_ports temperature_4]
+set_property IOSTANDARD LVCMOS18 [get_ports temperature_0]
+set_property IOSTANDARD LVCMOS18 [get_ports temperature_1]
+set_property IOSTANDARD LVCMOS18 [get_ports temperature_2]
+set_property IOSTANDARD LVCMOS18 [get_ports temperature_3]
+set_property IOSTANDARD LVCMOS18 [get_ports temperature_4]
 
 #####Certain types of signals, such as reset, also require a weak pull-up or pull-down
 #This is further defined in the constraints:
@@ -85,15 +85,22 @@ set_property PULLUP true [get_ports rst_n]
 #waveform <edges> - list of numbers representing times of successive edges. For example:
 #create_clock -name sys_clk1 -period 5.0 -waveform {1.0 4.0} [get_ports clk_in1]
 
-
-create_clock -period 10 -name clk_p [get_ports clk_p]
-create_clock -period 10 -name clk_n -waveform {5.0 10.0} [get_ports clk_n]
-
-
 ## Clock groups
 #set_clock_groups -asynchronous –group [get_clocks –include_generated_clocks clk_oxo]  #group [get_clocks –include_generated_clocks clk_core]
 
-set_clock_groups -asynchronous –group [get_clocks –include_generated_clocks clk_p] -group [get_clocks –include_generated_clocks n]
+#Bad approach:
+create_clock -period 10 -name clk_p [get_ports {clk_p}]
+#create_clock -period 10 -name clk_n -waveform {5.0 10.0} [get_ports {clk_n}]
+set_clock_groups -asynchronous -group {clk_p}
+#-group [get_clocks -include_generated_clocks {clk_n}]
+
+#Better approach:
+#create_generated_clock -name clk -source [get_ports {clk_p}]
+#set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks {clk}] -group [get_clocks -include_generated_clocks {clk_p}] 
+
+
+
+
 
 
 ## Input and output delay constraints
