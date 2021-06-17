@@ -18,6 +18,20 @@ puts "Creating Project"
 
 create_fileset -constrset -quiet constraints
 
+# Add IPs
+
+create_ip -name blk_mem_gen -vendor xilinx.com -library ip -version 8.4 -module_name bram_lights
+set_property -dict [list CONFIG.Component_Name {bram_lights} CONFIG.Use_Byte_Write_Enable {false} CONFIG.Write_Width_A {24} CONFIG.Write_Depth_A {4} CONFIG.Read_Width_A {24} CONFIG.Write_Width_B {24} CONFIG.Read_Width_B {24} CONFIG.Load_Init_File {true} CONFIG.Coe_File {/home/centos/CWM-ECAD/Ex9/mem_lights.coe}] [get_ips bram_lights]
+reset_target all [get_ips bram_lights]
+
+create_ip -name blk_mem_gen -vendor xilinx.com -library ip -version 8.4 -module_name bram_order
+set_property -dict [list CONFIG.Component_Name {bram_order} CONFIG.Use_Byte_Write_Enable {false} CONFIG.Write_Width_A {24} CONFIG.Write_Depth_A {8} CONFIG.Read_Width_A {24} CONFIG.Write_Width_B {24} CONFIG.Read_Width_B {24} CONFIG.Load_Init_File {true} CONFIG.Coe_File {/home/centos/CWM-ECAD/Ex9/mem_order.coe}] [get_ips bram_order]
+reset_target all [get_ips bram_order]
+
+read_verilog "aircon.v"
+read_verilog "rgb_converter.v"
+read_verilog "select_light.v"
+
 read_verilog "top.v"
 read_verilog "top_tb.v"
 
