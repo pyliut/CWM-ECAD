@@ -18,17 +18,17 @@ module aircon(
 	always @ (posedge clk)
 		case({heating,cooling})
 			2'b00: begin
-				if (temperature <= 5'd18)
+				if (temperature <= 6'd18)
 					heating = 1;
-				else if (temperature >= 5'd22)
+				else if (temperature >= 6'd22)
 					cooling = 1;
 			end
 			2'b01: begin
-				if (temperature <= 5'd20)
+				if (temperature <= 6'd20)
 					cooling = 0;
 			end
 			2'b10: begin
-				if (temperature >= 5'd20)
+				if (temperature >= 6'd20)
 					heating = 0;
 			end
 			default: {heating,cooling} = 2'b0;

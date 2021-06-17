@@ -9,17 +9,9 @@ module top_tb();
 	reg clk_p;
 	reg clk_n;
 
-	reg temperature_0;
-	reg temperature_1;
-	reg temperature_2;
-	reg temperature_3;
-	reg temperature_4;
-	reg temperature_5;
-	reg [5:0] temperature = {temperature_5, temperature_4, temperature_3, temperature_2, temperature_1, temperature_0};
-	wire [23:0] aircon_light
-	wire heating;
-	wire cooling;
-	wire [23:0] rgb;
+	reg [5:0] temperature;
+	
+	wire [23:0] aircon_light;
 	reg err;
 
 
@@ -29,45 +21,34 @@ module top_tb();
        		forever
          		#(CLK_PERIOD/2) clk_p=~clk_p;	//change every half-period
      	end
-	clk_n = ~clk_p;
+	
+	initial begin
+       		clk_n = 1'b0;
+       		forever
+         		#(CLK_PERIOD/2) clk_n=~clk_n;	//change every half-period
+     	end
+
 
 //Todo: error checking
-	initial begin
-		err = 0;
-		
-		forever begin
-			#(CLK_PERIOD)
-			if ((temperature > 5'd22) && (({heating,cooling} == 2'b10) || ({heating,cooling} == 2'b00))) begin
-				err = 1;
-				$display("*** TEST FAILED: temperature=%d heating=%d cooling=%d) ***", temperature, heating, cooling);
-			end else if ((temperature < 5'd18) && (({heating,cooling} == 2'b01) || ({heating,cooling} == 2'b00))) begin
-				err = 1;
-				$display("*** TEST FAILED: temperature=%d heating=%d cooling=%d) ***", temperature, heating, cooling);
-			end else if ({heating,cooling} == 2'b11) begin
-				err = 1;
-				$display("*** TEST FAILED: temperature=%d heating=%d cooling=%d) ***", temperature, heating, cooling);
-			end
-		end
-	end
 			
 
 //Todo: Final block & schange variables
 
 	initial begin
-		temperature = 5'd20;
+		temperature = 6'd20;
 
 		#(CLK_PERIOD*2)
-		temperature = 5'd22;
+		temperature = 6'd22;
 		#(CLK_PERIOD*2)
-		temperature = 5'd25;
+		temperature = 6'd25;
 		#(CLK_PERIOD*2)
-		temperature = 5'd20;
+		temperature = 6'd20;
 		#(CLK_PERIOD*2)
-		temperature = 5'd18;
+		temperature = 6'd18;
 		#(CLK_PERIOD*2)
-		temperature = 5'd19;
+		temperature = 6'd19;
 		#(CLK_PERIOD*2)
-		temperature = 5'd20;
+		temperature = 6'd20;
 		#(CLK_PERIOD*2)
 		if (err==0)
           		$display("***TEST PASSED!***");
@@ -76,15 +57,15 @@ module top_tb();
 	end
 
 //Todo: Instantiate module
-	top top (
+	controller top (
 		.clk_p (clk_p),
 		.clk_n (clk_n),
-		.temperature_0 (temperature_0),
-		.temperature_1 (temperature_1),
-		.temperature_2 (temperature_2),
-		.temperature_3 (temperature_3),
-		.temperature_4 (temperature_4),
-		.temperature_5 (temperature_5),
+		.temperature_0 (temperature[0]),
+		.temperature_1 (temperature[1]),
+		.temperature_2 (temperature[2]),
+		.temperature_3 (temperature[3]),
+		.temperature_4 (temperature[4]),
+		.temperature_5 (temperature[5]),
 		.aircon_light (aircon_light),
 		);	
 	

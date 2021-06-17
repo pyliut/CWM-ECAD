@@ -1,6 +1,6 @@
 `timescale 1ns / 100ps
 
-module top(
+module controller (
     	input clk_p,
     	input clk_n,
 
@@ -11,12 +11,12 @@ module top(
 	input temperature_3,
 	input temperature_4,
 	input temperature_5,
-	output [23:0] aircon_light,					//1 if on
+	output [23:0] aircon_light					//1 if on
    	);
 
 	//Add registers/wires
-	wire heating
-	wire cooling
+	wire heating;
+	wire cooling;
 	wire [23:0] rgb;
 	wire [23:0] aircon_light;
 	wire [5:0] temperature = {temperature_5, temperature_4, temperature_3, temperature_2, temperature_1, temperature_0};
