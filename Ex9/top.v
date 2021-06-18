@@ -36,6 +36,7 @@ module controller (
 	wire alarm;
 	
 	wire [5:0] weight = {weight_5, weight_4, weight_3, weight_2, weight_1, weight_0};
+	wire [23:0] order_code;
     	wire [23:0] order;
 
    /* clock infrastructure, do not modify */
