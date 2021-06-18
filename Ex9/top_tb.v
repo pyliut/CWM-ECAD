@@ -10,7 +10,12 @@ module top_tb();
 	reg clk_n;
 
 	reg [5:0] temperature;
-	
+	reg temperature_0;
+	reg temperature_1;
+	reg temperature_2;
+	reg temperature_3;
+	reg temperature_4;
+	reg temperature_5;
 	wire [23:0] aircon_light;
 	reg err;
 
@@ -30,6 +35,18 @@ module top_tb();
 
 
 //Todo: error checking
+	initial begin
+		err = 0;
+		forever begin
+			#CLK_PERIOD
+			temperature_0 = temperature[0];
+			temperature_1 = temperature[1];
+			temperature_2 = temperature[2];
+			temperature_3 = temperature[3];
+			temperature_4 = temperature[4];
+			temperature_5 = temperature[5];
+		end
+	end
 			
 
 //Todo: Final block & schange variables
@@ -60,13 +77,13 @@ module top_tb();
 	controller top (
 		.clk_p (clk_p),
 		.clk_n (clk_n),
-		.temperature_0 (temperature[0]),
-		.temperature_1 (temperature[1]),
-		.temperature_2 (temperature[2]),
-		.temperature_3 (temperature[3]),
-		.temperature_4 (temperature[4]),
-		.temperature_5 (temperature[5]),
-		.aircon_light (aircon_light),
+		.temperature_0 (temperature_0),
+		.temperature_1 (temperature_1),
+		.temperature_2 (temperature_2),
+		.temperature_3 (temperature_3),
+		.temperature_4 (temperature_4),
+		.temperature_5 (temperature_5),
+		.aircon_light (aircon_light)
 		);	
 	
 

@@ -10,13 +10,16 @@ module rgb_converter (
 
     //Add register
 	wire [23:0] rgb;
+	wire [1:0] mode;
+
+
 
     //Instantiate BRAM
 	bram_lights my_bram_lights (
 	  .clka(clk),    // input wire clka
 	  .ena(1'b1),      // input wire ena
 	  .wea(1'b0),      // input wire [0 : 0] wea
-	  .addra({heating,cooling}),  // input wire [2 : 0] addra
+	  .addra({heating,cooling}),  // input wire [1 : 0] addra
 	  .dina(24'b0),    // input wire [23 : 0] dina
 	  .douta(rgb)  // output wire [23 : 0] douta
 	);
