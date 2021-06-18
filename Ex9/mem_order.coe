@@ -1,2 +1,2 @@
-memory_initialization_radix=16;
-memory_initialization_vector=000000 0000FF 00FF00 00FFFF FF0000 FF00FF FFFF00 FFFFFF;
+memory_initialization_radix=2;
+memory_initialization_vector=000000 000011 001100 001111 110000 110011 111100 111111;

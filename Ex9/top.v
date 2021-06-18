@@ -21,23 +21,43 @@ module controller (
 
 	input smoke,
 
-	output [23:0] aircon_light,				//1 if on
+	output aircon_light_0,				//1 if on
+	output aircon_light_1,
+	output aircon_light_2,
+	output aircon_light_3,
+	output aircon_light_4,
+	output aircon_light_5,
 	output alarm,
-	output [23:0] order
+	output order_0,
+	output order_1,
+	output order_2,
+	output order_3,
+	output order_4,
+	output order_5
    	);
 
 	//Add registers/wires
 	wire heating;
 	wire cooling;
-	wire [23:0] rgb;
-	wire [23:0] aircon_light;
+	wire [5:0] rgb;
+	wire aircon_light_0;
+	wire aircon_light_1;
+	wire aircon_light_2;
+	wire aircon_light_3;
+	wire aircon_light_4;
+	wire aircon_light_5;
 	wire [5:0] temperature = {temperature_5, temperature_4, temperature_3, temperature_2, temperature_1, temperature_0};
 	
 	wire alarm;
 	
 	wire [5:0] weight = {weight_5, weight_4, weight_3, weight_2, weight_1, weight_0};
-	wire [23:0] order_code;
-    	wire [23:0] order;
+	wire [5:0] order_code;
+    	wire order_0;
+	wire order_1;
+	wire order_2;
+	wire order_3;
+	wire order_4;
+	wire order_5;
 
    /* clock infrastructure, do not modify */
         wire clk_ibufds;
@@ -73,10 +93,10 @@ module controller (
 
 	select_light my_select_light(
 		.rgb (rgb),
-		.white (24'hffffff),
+		.white (6'b111111),
 		.heating (heating),	//1 indicates heating on
 		.cooling (cooling),	//1 indicates cooling on
-		.aircon_light (aircon_light)
+		.aircon_light ({aircon_light_5, aircon_light_4, aircon_light_3, aircon_light_2, aircon_light_1, aircon_light_0})
 	);
 
 	smoke_detector my_smoke_detector(
@@ -100,9 +120,9 @@ module controller (
 
 	select_order my_select_order(
 		.order_code (order_code),
-		.no_order (24'hffffff),
+		.no_order (6'b111111),
 		.sel (sel),
-		.order (order)
+		.order ({order_5, order_4, order_3, order_2, order_1, order_0})
 	);
 
 

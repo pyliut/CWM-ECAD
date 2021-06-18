@@ -4,11 +4,11 @@ module shopping_list (
     //Add ports 
 	input clk,			//0 or 1
 	input [5:0] temperature,	//6bits temperature
-	output [23:0] order_code		//3x8bits: R G B
+	output [5:0] order_code		//3x8bits: R G B
     	);
 
     //Add register
-	wire [23:0] order_code;
+	wire [5:0] order_code;
 	reg [2:0] temperature_band;
 
 
@@ -19,7 +19,7 @@ module shopping_list (
 	  .ena(1'b1),      // input wire ena
 	  .wea(1'b0),      // input wire [0 : 0] wea
 	  .addra(temperature_band),  // input wire [2 : 0] addra
-	  .dina(24'b0),    // input wire [23 : 0] dina
+	  .dina(6'b0),    // input wire [23 : 0] dina
 	  .douta(order_code)  // output wire [23 : 0] douta
 	);
 

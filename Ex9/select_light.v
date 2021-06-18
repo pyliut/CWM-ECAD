@@ -2,15 +2,15 @@
 
 module select_light(
     //Todo: define inputs here
-	input [23:0] rgb,
-	input [23:0] white,
+	input [5:0] rgb,
+	input [5:0] white,
 	input heating,
 	input cooling,
-	output [23:0] aircon_light
+	output [5:0] aircon_light
     	);
     
     //Todo: define registers and wires here
-	wire [23:0] aircon_light;
+	wire [5:0] aircon_light;
 
     //Todo: define your logic here  
 

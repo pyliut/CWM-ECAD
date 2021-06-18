@@ -2,14 +2,14 @@
 
 module select_order(
     //Todo: define inputs here
-	input [23:0] order_code,
-	input [23:0] no_order,
+	input [5:0] order_code,
+	input [5:0] no_order,
 	input sel,
-	output [23:0] order
+	output [5:0] order
     	);
     
     //Todo: define registers and wires here
-	wire [23:0] order;
+	wire [5:0] order;
 
     //Todo: define your logic here  
 
