@@ -17,10 +17,22 @@ module top_tb();
 	reg temperature_3;
 	reg temperature_4;
 	reg temperature_5;
+	
 	reg smoke;
+	
+	reg [5:0] weight;
+	reg weight_0;
+	reg weight_1;
+	reg weight_2;
+	reg weight_3;
+	reg weight_4;
+	reg weight_5;
+
+	
 	//outputs
 	wire [23:0] aircon_light;
 	wire alarm;
+	wire [23:0] order;
 	reg err;
 
 
@@ -50,6 +62,13 @@ module top_tb();
 			temperature_3 = temperature[3];
 			temperature_4 = temperature[4];
 			temperature_5 = temperature[5];
+
+			weight_0 = weight[0];
+			weight_1 = weight[1];
+			weight_2 = weight[2];
+			weight_3 = weight[3];
+			weight_4 = weight[4];
+			weight_5 = weight[5];
 		end
 	end
 			
@@ -58,11 +77,14 @@ module top_tb();
 
 	initial begin
 		temperature = 6'd20;
+		weight = 6'd20;
 
 		#(CLK_PERIOD*2)
 		temperature = 6'd22;
+		weight = 6'd5;
 		#(CLK_PERIOD*2)
 		temperature = 6'd25;
+		weight = 6'd2;
 		#(CLK_PERIOD*2)
 		temperature = 6'd60;
 		#(CLK_PERIOD*2)
@@ -72,6 +94,7 @@ module top_tb();
 		temperature = 6'd20;
 		#(CLK_PERIOD*2)
 		temperature = 6'd18;
+		weight = 6'd20;
 		#(CLK_PERIOD*2)
 		temperature = 6'd19;
 		smoke = 0;
@@ -94,9 +117,16 @@ module top_tb();
 		.temperature_3 (temperature_3),
 		.temperature_4 (temperature_4),
 		.temperature_5 (temperature_5),
+		.weight_0 (weight_0),			//0th bit of weight
+		.weight_1 (weight_1),
+		.weight_2 (weight_2),
+		.weight_3 (weight_3),
+		.weight_4 (weight_4),
+		.weight_5 (weight_5),
 		.smoke (smoke),
 		.aircon_light (aircon_light),
-		.alarm (alarm)
+		.alarm (alarm),
+		.order (order)
 		);	
 	
 
