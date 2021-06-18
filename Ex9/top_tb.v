@@ -6,6 +6,7 @@ module top_tb();
 	parameter CLK_PERIOD = 10; 	//set clock period
 
 //Todo: Registers and wires
+	//inputs
 	reg clk_p;
 	reg clk_n;
 
@@ -16,7 +17,10 @@ module top_tb();
 	reg temperature_3;
 	reg temperature_4;
 	reg temperature_5;
+	reg smoke;
+	//outputs
 	wire [23:0] aircon_light;
+	wire alarm;
 	reg err;
 
 
@@ -37,6 +41,7 @@ module top_tb();
 //Todo: error checking
 	initial begin
 		err = 0;
+		smoke = 0;
 		forever begin
 			#CLK_PERIOD
 			temperature_0 = temperature[0];
@@ -59,11 +64,17 @@ module top_tb();
 		#(CLK_PERIOD*2)
 		temperature = 6'd25;
 		#(CLK_PERIOD*2)
+		temperature = 6'd60;
+		#(CLK_PERIOD*2)
+		temperature = 6'd25;
+		smoke = 1;
+		#(CLK_PERIOD*2)
 		temperature = 6'd20;
 		#(CLK_PERIOD*2)
 		temperature = 6'd18;
 		#(CLK_PERIOD*2)
 		temperature = 6'd19;
+		smoke = 0;
 		#(CLK_PERIOD*2)
 		temperature = 6'd20;
 		#(CLK_PERIOD*2)
@@ -83,7 +94,9 @@ module top_tb();
 		.temperature_3 (temperature_3),
 		.temperature_4 (temperature_4),
 		.temperature_5 (temperature_5),
-		.aircon_light (aircon_light)
+		.smoke (smoke),
+		.aircon_light (aircon_light),
+		.alarm (alarm)
 		);	
 	
 

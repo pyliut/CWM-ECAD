@@ -31,6 +31,7 @@ reset_target all [get_ips bram_order]
 read_verilog "aircon.v"
 read_verilog "rgb_converter.v"
 read_verilog "select_light.v"
+read_verilog "smoke_detector.v"
 
 read_verilog "top.v"
 read_verilog "top_tb.v"

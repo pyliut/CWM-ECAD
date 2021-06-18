@@ -11,12 +11,15 @@ module controller (
 	input temperature_3,
 	input temperature_4,
 	input temperature_5,
-	output [23:0] aircon_light					//1 if on
+	input smoke,
+	output [23:0] aircon_light,				//1 if on
+	output alarm
    	);
 
 	//Add registers/wires
 	wire heating;
 	wire cooling;
+	wire alarm;
 	wire [23:0] rgb;
 	wire [23:0] aircon_light;
 	wire [5:0] temperature = {temperature_5, temperature_4, temperature_3, temperature_2, temperature_1, temperature_0};
@@ -61,5 +64,12 @@ module controller (
 		.cooling (cooling),	//1 indicates cooling on
 		.aircon_light (aircon_light)
 	);
+
+	smoke_detector my_smoke_detector(
+		.clk (clk),
+		.temperature (temperature),			//6bits temperature
+		.smoke (smoke),					//1 if on
+		.alarm (alarm)					//1 if on
+   	);
 
 endmodule
