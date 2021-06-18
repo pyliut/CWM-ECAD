@@ -30,9 +30,21 @@ module top_tb();
 
 	
 	//outputs
-	wire [23:0] aircon_light;
+	wire [5:0] aircon_light;
+	wire aircon_light_0;
+	wire aircon_light_1;
+	wire aircon_light_2;
+	wire aircon_light_3;
+	wire aircon_light_4;
+	wire aircon_light_5;
 	wire alarm;
-	wire [23:0] order;
+	wire [5:0] order;
+	wire order_0;
+	wire order_1;
+	wire order_2;
+	wire order_3;
+	wire order_4;
+	wire order_5;
 	reg err;
 
 
@@ -69,6 +81,21 @@ module top_tb();
 			weight_3 = weight[3];
 			weight_4 = weight[4];
 			weight_5 = weight[5];
+
+			aircon_light_0 = aircon_light[0];
+			aircon_light_1 = aircon_light[1];
+			aircon_light_2 = aircon_light[2];
+			aircon_light_3 = aircon_light[3];
+			aircon_light_4 = aircon_light[4];
+			aircon_light_5 = aircon_light[5];
+
+			order_0 = order[0];
+			order_1 = order[1];
+			order_2 = order[2];
+			order_3 = order[3];
+			order_4 = order[4];
+			order_5 = order[5];
+	
 		end
 	end
 			
@@ -124,9 +151,19 @@ module top_tb();
 		.weight_4 (weight_4),
 		.weight_5 (weight_5),
 		.smoke (smoke),
-		.aircon_light (aircon_light),
+		.aircon_light_0 (aircon_light_0),
+		.aircon_light_1 (aircon_light_1),
+		.aircon_light_2 (aircon_light_2),
+		.aircon_light_3 (aircon_light_3),
+		.aircon_light_4 (aircon_light_4),
+		.aircon_light_5 (aircon_light_5),
 		.alarm (alarm),
-		.order (order)
+		.order_0 (order_0),
+		.order_1 (order_1),
+		.order_2 (order_2),
+		.order_3 (order_3),
+		.order_4 (order_4),
+		.order_5 (order_5)
 		);	
 	
 
